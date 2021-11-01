@@ -1,4 +1,4 @@
-import 'package:flutter_opinion_moniter/_utils/http/dao/login_dao.dart';
+import 'package:flutter_opinion_monitor/_utils/http/dao/login_dao.dart';
 
 enum HttpMethod { GET, POST, DELETE }
 
@@ -31,7 +31,7 @@ abstract class BaseRequest {
     }
 
     if (needLogin()) {
-      addHeader(LoginDao.BOARDING_PASS, LoginDao.getBoardingPass());
+      addHeader(LoginDao.BOARDING_PASS, LoginDao.getBoardingPass() ?? "");
     }
     return uri.toString();
   }

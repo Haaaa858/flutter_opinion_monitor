@@ -1,8 +1,8 @@
-import 'package:flutter_opinion_moniter/_utils/http/core/hi_cache.dart';
-import 'package:flutter_opinion_moniter/_utils/http/core/hi_net.dart';
-import 'package:flutter_opinion_moniter/_utils/http/request/base_request.dart';
-import 'package:flutter_opinion_moniter/_utils/http/request/login_request.dart';
-import 'package:flutter_opinion_moniter/_utils/http/request/registration_request.dart';
+import 'package:flutter_opinion_monitor/_utils/http/core/hi_cache.dart';
+import 'package:flutter_opinion_monitor/_utils/http/core/hi_net.dart';
+import 'package:flutter_opinion_monitor/_utils/http/request/base_request.dart';
+import 'package:flutter_opinion_monitor/_utils/http/request/login_request.dart';
+import 'package:flutter_opinion_monitor/_utils/http/request/registration_request.dart';
 
 class LoginDao {
   static final String BOARDING_PASS = "boarding-pass";
@@ -33,7 +33,12 @@ class LoginDao {
     return result;
   }
 
-  static String getBoardingPass() {
+  static String? getBoardingPass() {
     return HiCache.getInstance().get(BOARDING_PASS);
+  }
+
+  static bool isLogin() {
+    String? token = HiCache.getInstance().get(BOARDING_PASS);
+    return token != null;
   }
 }

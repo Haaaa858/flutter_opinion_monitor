@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_opinion_moniter/_utils/colors.dart';
+import 'package:flutter_opinion_monitor/_utils/colors.dart';
 
 class LoginButton extends StatelessWidget {
   final String title;

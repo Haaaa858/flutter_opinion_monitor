@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_opinion_moniter/widgets/single_line_fitted_box.dart';
+import 'package:flutter_opinion_monitor/widgets/single_line_fitted_box.dart';
 
 enum HeaderBgPos { LEFT, CENTER, RIGHT }
 

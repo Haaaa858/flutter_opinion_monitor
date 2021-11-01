@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter_opinion_moniter/_utils/http/request/base_request.dart';
+import 'package:flutter_opinion_monitor/_utils/http/request/base_request.dart';
 
 abstract class HiNetAdapter {
   Future<HiNetResponse<T>> send<T>(BaseRequest baseRequest);

@@ -1,4 +1,4 @@
-import 'package:flutter_opinion_moniter/_utils/http/request/base_request.dart';
+import 'package:flutter_opinion_monitor/_utils/http/request/base_request.dart';
 
 class TestRequest extends BaseRequest {
   @override

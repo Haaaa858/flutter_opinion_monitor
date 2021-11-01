@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_opinion_moniter/_utils/logger.dart';
-import 'package:flutter_opinion_moniter/pages/login_page.dart';
-import 'package:flutter_opinion_moniter/widgets/hi_app_bar.dart';
-import 'package:flutter_opinion_moniter/widgets/login_button.dart';
-import 'package:flutter_opinion_moniter/widgets/login_effect.dart';
-import 'package:flutter_opinion_moniter/widgets/login_input.dart';
+import 'package:flutter_opinion_monitor/_utils/logger.dart';
+import 'package:flutter_opinion_monitor/widgets/hi_app_bar.dart';
+import 'package:flutter_opinion_monitor/widgets/login_button.dart';
+import 'package:flutter_opinion_monitor/widgets/login_effect.dart';
+import 'package:flutter_opinion_monitor/widgets/login_input.dart';
 
 class RegistrationPage extends StatefulWidget {
-  RegistrationPage({Key? key}) : super(key: key);
-
+  final VoidCallback onJumpToLogin;
+  RegistrationPage({Key? key, required this.onJumpToLogin}) : super(key: key);
   @override
   _RegistrationPageState createState() => _RegistrationPageState();
 }
@@ -26,15 +25,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: hiAppBar(
-        title: "注册",
-        rightTitle: "登录",
-        rightButtonClick: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (BuildContext context) {
-            return LoginPage();
-          }));
-        },
-      ),
+          title: "注册",
+          rightTitle: "登录",
+          rightButtonClick: widget.onJumpToLogin),
       body: Container(
           child: ListView(
         children: [

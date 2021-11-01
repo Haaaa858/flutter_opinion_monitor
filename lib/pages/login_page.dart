@@ -1,16 +1,23 @@
 import 'package:common_utils/common_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_opinion_moniter/_utils/http/core/hi_cache.dart';
-import 'package:flutter_opinion_moniter/_utils/http/dao/login_dao.dart';
-import 'package:flutter_opinion_moniter/pages/registration_page.dart';
-import 'package:flutter_opinion_moniter/widgets/hi_app_bar.dart';
-import 'package:flutter_opinion_moniter/widgets/login_button.dart';
-import 'package:flutter_opinion_moniter/widgets/login_effect.dart';
-import 'package:flutter_opinion_moniter/widgets/login_input.dart';
+import 'package:flutter_opinion_monitor/_utils/http/core/hi_cache.dart';
+import 'package:flutter_opinion_monitor/_utils/http/dao/login_dao.dart';
+import 'package:flutter_opinion_monitor/_utils/index.dart';
+import 'package:flutter_opinion_monitor/widgets/hi_app_bar.dart';
+import 'package:flutter_opinion_monitor/widgets/login_button.dart';
+import 'package:flutter_opinion_monitor/widgets/login_effect.dart';
+import 'package:flutter_opinion_monitor/widgets/login_input.dart';
 import 'package:logging/logging.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key? key}) : super(key: key);
+  final VoidCallback onJumpToRegistration;
+  final VoidCallback onLoginSuccess;
+
+  LoginPage(
+      {Key? key,
+      required this.onJumpToRegistration,
+      required this.onLoginSuccess})
+      : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -36,15 +43,9 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: hiAppBar(
-        title: "登录",
-        rightTitle: "注册",
-        rightButtonClick: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (BuildContext context) {
-            return RegistrationPage();
-          }));
-        },
-      ),
+          title: "登录",
+          rightTitle: "注册",
+          rightButtonClick: widget.onJumpToRegistration),
       body: Container(
           child: ListView(
         children: [
@@ -88,8 +89,13 @@ class _LoginPageState extends State<LoginPage> {
   void submit() async {
     var result = await LoginDao.login(username!, password!);
     logger.info("login response,${result.toString()}");
-
     logger.info(
         "${LoginDao.BOARDING_PASS},${HiCache.getInstance().get(LoginDao.BOARDING_PASS)}");
+    if (result["code"] == 0) {
+      showToast("登录成功");
+      widget.onLoginSuccess();
+    } else {
+      showWarnToast(result["msg"]);
+    }
   }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_opinion_moniter/_utils/colors.dart';
-import 'package:flutter_opinion_moniter/_utils/logger.dart';
+import 'package:flutter_opinion_monitor/_utils/colors.dart';
+import 'package:flutter_opinion_monitor/_utils/logger.dart';
 
 class LoginInput extends StatefulWidget {
   // 标题

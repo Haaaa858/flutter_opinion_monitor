@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_opinion_moniter/_utils/http/core/hi_error.dart';
-import 'package:flutter_opinion_moniter/_utils/http/core/hi_net_adapter.dart';
-import 'package:flutter_opinion_moniter/_utils/http/request/base_request.dart';
+import 'package:flutter_opinion_monitor/_utils/http/core/hi_error.dart';
+import 'package:flutter_opinion_monitor/_utils/http/core/hi_net_adapter.dart';
+import 'package:flutter_opinion_monitor/_utils/http/request/base_request.dart';
 
 class DioAdapter extends HiNetAdapter {
   @override
