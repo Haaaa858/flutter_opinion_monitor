@@ -1,4 +1,4 @@
-package com.example.flutter_opinion_moniter
+package com.example.flutter_opinion_monitor
 
 import io.flutter.embedding.android.FlutterActivity
 

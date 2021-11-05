@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.flutter_opinion_moniter">
+    package="com.example.flutter_opinion_monitor">
    <application
-        android:label="flutter_opinion_moniter"
+       android:usesCleartextTraffic="true"
+       android:label="flutter_opinion_monitor"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

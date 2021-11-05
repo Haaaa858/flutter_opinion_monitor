@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_opinion_monitor/_utils/logger.dart';
+import 'package:flutter_opinion_monitor/_utils/navigator/hi_navigator.dart';
 import 'package:flutter_opinion_monitor/widgets/hi_app_bar.dart';
 import 'package:flutter_opinion_monitor/widgets/login_button.dart';
 import 'package:flutter_opinion_monitor/widgets/login_effect.dart';
 import 'package:flutter_opinion_monitor/widgets/login_input.dart';
 
 class RegistrationPage extends StatefulWidget {
-  final VoidCallback onJumpToLogin;
-  RegistrationPage({Key? key, required this.onJumpToLogin}) : super(key: key);
+  RegistrationPage({Key? key}) : super(key: key);
   @override
   _RegistrationPageState createState() => _RegistrationPageState();
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
   bool pwdFocused = false;
+  onJumpToLogin() {
+    HiNavigator.getInstance().onJumpTo(RouteStatus.login);
+  }
 
   void pwdFocusChanged(isFocused) {
     setState(() {
@@ -25,9 +28,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: hiAppBar(
-          title: "注册",
-          rightTitle: "登录",
-          rightButtonClick: widget.onJumpToLogin),
+          title: "注册", rightTitle: "登录", rightButtonClick: onJumpToLogin),
       body: Container(
           child: ListView(
         children: [

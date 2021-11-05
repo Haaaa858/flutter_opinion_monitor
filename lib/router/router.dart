@@ -3,10 +3,10 @@ import "dart:core";
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_opinion_monitor/_utils/http/dao/login_dao.dart';
+import 'package:flutter_opinion_monitor/_utils/navigator/bottom_navigator.dart';
 import 'package:flutter_opinion_monitor/_utils/navigator/hi_navigator.dart';
 import 'package:flutter_opinion_monitor/_utils/toast.dart';
-import 'package:flutter_opinion_monitor/model/video_model.dart';
-import 'package:flutter_opinion_monitor/pages/home_page.dart';
+import 'package:flutter_opinion_monitor/model/home_mo.dart';
 import 'package:flutter_opinion_monitor/pages/login_page.dart';
 import 'package:flutter_opinion_monitor/pages/registration_page.dart';
 import 'package:flutter_opinion_monitor/pages/video_detail_page.dart';
@@ -24,9 +24,18 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
   final GlobalKey<NavigatorState> navigatorKey;
   RouteStatus _routeStatus = RouteStatus.home;
   late BiliRoutePath routePath;
-  VideoModel? videoModel;
+  VideoMo? videoModel;
 
-  BiliRouteDelegate() : navigatorKey = GlobalKey<NavigatorState>();
+  BiliRouteDelegate() : navigatorKey = GlobalKey<NavigatorState>() {
+    HiNavigator.getInstance().registerJumpListener(
+        RouteJumpListener(onJumpTo: (RouteStatus routeStatus, {Map? args}) {
+      _routeStatus = routeStatus;
+      if (routeStatus == RouteStatus.detail && args != null) {
+        this.videoModel = args["videoMo"];
+      }
+      notifyListeners();
+    }));
+  }
 
   List<MaterialPage> pages = [];
   bool get hasLogin => LoginDao.isLogin();
@@ -43,34 +52,19 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
 
     if (routeStatus == RouteStatus.home) {
       pages.clear();
-      page = pageWrap(HomePage(onJumpToDetail: (VideoModel value) {
-        this.videoModel = value;
-        notifyListeners();
-      }));
+      page = pageWrap(BottomNavigator());
     } else if (routeStatus == RouteStatus.detail) {
       page = pageWrap(VideoDetailPage(videoModel: videoModel!));
-      _routeStatus = RouteStatus.detail;
-      notifyListeners();
     } else if (routeStatus == RouteStatus.registration) {
-      page = pageWrap(RegistrationPage(
-        onJumpToLogin: () {
-          _routeStatus = RouteStatus.login;
-          notifyListeners();
-        },
-      ));
+      page = pageWrap(RegistrationPage());
     } else if (routeStatus == RouteStatus.login) {
-      page = pageWrap(LoginPage(
-        onJumpToRegistration: () {
-          _routeStatus = RouteStatus.registration;
-          notifyListeners();
-        },
-        onLoginSuccess: () {
-          _routeStatus = RouteStatus.home;
-          notifyListeners();
-        },
-      ));
+      page = pageWrap(LoginPage());
     }
-    pages = [...tmpPages, page];
+
+    tmpPages = [...tmpPages, page];
+    HiNavigator.getInstance().notifyRouteStackChanged(tmpPages, pages);
+    pages = tmpPages;
+
     return WillPopScope(
         onWillPop: () async =>
             !await navigatorKey.currentState!.maybePop(navigatorKey),
@@ -91,7 +85,10 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
             if (!route.didPop(result)) {
               return false;
             }
+            var tmpPages = [...pages];
             pages.removeLast();
+            HiNavigator.getInstance().notifyRouteStackChanged(pages, tmpPages);
+
             return true;
           },
         ));

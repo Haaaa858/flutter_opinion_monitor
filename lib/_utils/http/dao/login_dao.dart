@@ -25,6 +25,8 @@ class LoginDao {
       request = LoginRequest();
     }
     request.add("userName", username).add("password", password);
+    HiCache.getInstance()
+        .setString(BOARDING_PASS, "5F43CC7FA193825014057D9DBAB0BFFDAF");
 
     var result = await HiNet.getInstance().fire(request);
     if (result["code"] == 0 && result["data"] != null) {

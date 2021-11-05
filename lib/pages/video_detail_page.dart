@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_opinion_monitor/model/video_model.dart';
+import 'package:flutter_opinion_monitor/model/home_mo.dart';
 
 class VideoDetailPage extends StatefulWidget {
-  final VideoModel videoModel;
+  final VideoMo videoModel;
 
   const VideoDetailPage({Key? key, required this.videoModel}) : super(key: key);
 
@@ -18,7 +18,7 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
       body: Container(
         child: Column(
           children: [
-            Text(widget.videoModel.vid),
+            Text(widget.videoModel.url ?? ""),
           ],
         ),
       ),

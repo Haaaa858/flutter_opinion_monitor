@@ -36,7 +36,7 @@ dependencies:
   common_utils: ^2.0.2
   logging: ^1.0.2
   fluttertoast: ^8.0.8
-
+  flutter_swiper_tv: ^1.1.6-nullsafety
 
 dev_dependencies:
   flutter_test:

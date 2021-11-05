@@ -18,16 +18,16 @@ abstract class BaseRequest {
     var pathStr = path();
     if (pathParams != null) {
       if (path().endsWith("/")) {
-        pathStr = "${path()}/$pathParams";
-      } else {
         pathStr = "${path()}$pathParams";
+      } else {
+        pathStr = "${path()}/$pathParams";
       }
     }
 
     if (useHttps) {
-      uri = Uri.https(authority(), pathStr, pathParams);
+      uri = Uri.https(authority(), pathStr, params);
     } else {
-      uri = Uri.http(authority(), pathStr, pathParams);
+      uri = Uri.http(authority(), pathStr, params);
     }
 
     if (needLogin()) {

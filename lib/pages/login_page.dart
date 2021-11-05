@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_opinion_monitor/_utils/http/core/hi_cache.dart';
 import 'package:flutter_opinion_monitor/_utils/http/dao/login_dao.dart';
 import 'package:flutter_opinion_monitor/_utils/index.dart';
+import 'package:flutter_opinion_monitor/_utils/navigator/hi_navigator.dart';
 import 'package:flutter_opinion_monitor/widgets/hi_app_bar.dart';
 import 'package:flutter_opinion_monitor/widgets/login_button.dart';
 import 'package:flutter_opinion_monitor/widgets/login_effect.dart';
@@ -10,14 +11,7 @@ import 'package:flutter_opinion_monitor/widgets/login_input.dart';
 import 'package:logging/logging.dart';
 
 class LoginPage extends StatefulWidget {
-  final VoidCallback onJumpToRegistration;
-  final VoidCallback onLoginSuccess;
-
-  LoginPage(
-      {Key? key,
-      required this.onJumpToRegistration,
-      required this.onLoginSuccess})
-      : super(key: key);
+  LoginPage({Key? key}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -35,6 +29,14 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+  onJumpToRegistration() {
+    HiNavigator.getInstance().onJumpTo(RouteStatus.registration);
+  }
+
+  onLoginSuccess() {
+    HiNavigator.getInstance().onJumpTo(RouteStatus.home);
+  }
+
   bool getSubmitEnable() {
     return !TextUtil.isEmpty(username) && !TextUtil.isEmpty(password);
   }
@@ -45,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: hiAppBar(
           title: "登录",
           rightTitle: "注册",
-          rightButtonClick: widget.onJumpToRegistration),
+          rightButtonClick: onJumpToRegistration),
       body: Container(
           child: ListView(
         children: [
@@ -93,7 +95,7 @@ class _LoginPageState extends State<LoginPage> {
         "${LoginDao.BOARDING_PASS},${HiCache.getInstance().get(LoginDao.BOARDING_PASS)}");
     if (result["code"] == 0) {
       showToast("登录成功");
-      widget.onLoginSuccess();
+      onLoginSuccess();
     } else {
       showWarnToast(result["msg"]);
     }
